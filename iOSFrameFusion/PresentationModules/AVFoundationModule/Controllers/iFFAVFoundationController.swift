@@ -9,21 +9,29 @@ import UIKit
 
 class iFFAVFoundationController: BaseViewController {
 
+    let frames = [
+        Frame(icon: "audio-og", title: "Audio", vc: iFFAVAudioController()),
+    ]
+    lazy var frameCollectionView: iFFVGridCollectionView = {
+        let cv = iFFVGridCollectionView()
+        cv.configure(parentViewController: self, frames: frames)
+        return cv
+    }()
+
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
     }
     
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+    override func style() {
+        
     }
-    */
+    
+    override func layout() {
+        view.addSubview(frameCollectionView)
+        
+        frameCollectionView.snp.makeConstraints { make in
+            make.edges.equalToSuperview()
+        }
+    }
 
 }

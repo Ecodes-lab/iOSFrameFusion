@@ -6,24 +6,55 @@
 //
 
 import UIKit
+import AVFoundation
 
 class iFFAVAudioEngineController: BaseViewController {
+    
+    var audioFile: AVAudioFile!
+    
+    var audioEngine: AVAudioEngine!
+    var playerNode: AVAudioPlayerNode!
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        do {
+            self.audioFile = try AVAudioFile(forReading: Bundle.main.url(forResource: "audio", withExtension: "m4a")!)
+        } catch {
+            print("Something happened")
+        }
+        
+        audioEngine = AVAudioEngine()
+        playerNode = AVAudioPlayerNode()
 
-        // Do any additional setup after loading the view.
+        // Attach the player node to the audio engine.
+        audioEngine.attach(playerNode)
+
+
+        // Connect the player node to the output node.
+        audioEngine.connect(playerNode,
+                            to: audioEngine.outputNode,
+                            format: audioFile.processingFormat)
+        
+        playerNode.scheduleFile(audioFile,
+                                at: nil,
+                                completionCallbackType: .dataPlayedBack) { _ in
+            /* Handle any work that's necessary after playback. */
+            self.playerNode.stop()
+            self.audioEngine.stop()
+        }
+        
+        play()
     }
     
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+    func play() {
+        do {
+            try audioEngine.start()
+            playerNode.play()
+        } catch {
+            /* Handle the error. */
+        }
     }
-    */
 
 }
+

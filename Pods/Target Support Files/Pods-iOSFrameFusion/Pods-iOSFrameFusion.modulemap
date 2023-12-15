@@ -1,0 +1,6 @@
+framework module Pods_iOSFrameFusion {
+  umbrella header "Pods-iOSFrameFusion-umbrella.h"
+
+  export *
+  module * { export * }
+}

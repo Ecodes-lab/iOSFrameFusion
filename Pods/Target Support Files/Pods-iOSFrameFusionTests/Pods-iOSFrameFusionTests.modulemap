@@ -1,0 +1,6 @@
+framework module Pods_iOSFrameFusionTests {
+  umbrella header "Pods-iOSFrameFusionTests-umbrella.h"
+
+  export *
+  module * { export * }
+}

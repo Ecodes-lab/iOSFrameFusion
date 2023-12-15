@@ -10,12 +10,19 @@ import SnapKit
 
 class iFFHomeViewController: BaseViewController {
     
-    let frameCollectionView = FrameCollectionView()
+    let frames = [
+        Frame(icon: "av-foundation-og", title: "AVFoundation", vc: iFFAVFoundationController()),
+    ]
+    
+    lazy var frameCollectionView: iFFVGridCollectionView = {
+        let cv = iFFVGridCollectionView()
+        cv.configure(parentViewController: self, frames: frames)
+        return cv
+    }()
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        
+//        title = "iOS Frame Fusion"
     }
     
     override func style() {

@@ -6,3 +6,11 @@
 //
 
 import Foundation
+
+
+struct K {
+    struct CellIndentifiers {
+        static let frameCollectionCell = "frameCollectionCell"
+        static let vCollectionCell = "vCollectionCell"
+    }
+}
